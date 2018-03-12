@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,7 @@ public class Enroll extends HttpServlet {
 	public void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException , IOException{
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
+		RequestDispatcher view = null;
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "exam", "exam");
@@ -82,7 +84,8 @@ public class Enroll extends HttpServlet {
 			System.out.println("Success");
 			pw.println("Success");
 		}catch(Exception e ) {
-			e.printStackTrace();
+			view = request.getRequestDispatcher("/studentEnrolled.html");
+			view.forward(request, response);
 		}
 	}
 }
