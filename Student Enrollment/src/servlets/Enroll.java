@@ -83,6 +83,8 @@ public class Enroll extends HttpServlet {
 			
 			System.out.println("Success");
 			pw.println("Success");
+			view = request.getRequestDispatcher("/index.html");
+			view.forward(request, response);
 		}catch(Exception e ) {
 			view = request.getRequestDispatcher("/studentEnrolled.html");
 			view.forward(request, response);
