@@ -1,14 +1,14 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,15 +29,13 @@ public class ImageServlet extends HttpServlet {
             String Query = "SELECT * FROM STUDENTS WHERE ROLL = '"+roll+"'";
             ResultSet rs = st.executeQuery(Query);
             String imgLen = "";
-//            if(rs.next()) {
-//            	imgLen = rs.getString(1);
-//            	System.out.println(imgLen.length());
-//            }
-//            rs = st.executeQuery(Query);
+
             if(rs.next()) {
-            	InputStream input = rs.getBinaryStream("PIC");
-            	OutputStream output = response.getOutputStream();
+            	Blob b = rs.getBlob(11);
+            	byte barr[] = b.getBytes(1,(int)b.length());
+            	ServletOutputStream sos = response.getOutputStream();
             	response.setContentType("image/png");
+            	sos.write(barr);
             }
 		}catch(Exception e) {
 			e.printStackTrace();
