@@ -61,7 +61,7 @@ public class Search extends HttpServlet {
             	html = html + "</title>\r\n" + 
             			"    </head>\r\n" + 
             			"    <body>\r\n" + 
-            			"        <h1>FNAME</h1>\r\n" + 
+            			"        <h1></h1>\r\n" + 
             			"        <img src=\"ImageServlet?roll=";;;
             	html = html + roll;
             	html = html + "\">\r\n" + 
